@@ -1,6 +1,6 @@
 package com.example.myufms.data
 
-import com.example.myufms.data.model.LoggedInUser
+import com.example.myufms.data.model.UserModel
 
 /**
  * Class that requests authentication and user information from the remote data source and
@@ -10,24 +10,24 @@ import com.example.myufms.data.model.LoggedInUser
 class LoginRepository(val dataSource: LoginDataSource) {
 
     // in-memory cache of the loggedInUser object
-    var user: LoggedInUser? = null
+    var userModel: UserModel? = null
         private set
 
     val isLoggedIn: Boolean
-        get() = user != null
+        get() = userModel != null
 
     init {
         // If user credentials will be cached in local storage, it is recommended it be encrypted
         // @see https://developer.android.com/training/articles/keystore
-        user = null
+        userModel = null
     }
 
     fun logout() {
-        user = null
+        userModel = null
         dataSource.logout()
     }
 
-    fun login(username: String, password: String): Result<LoggedInUser> {
+    fun login(username: String, password: String): Result<UserModel> {
         // handle login
         val result = dataSource.login(username, password)
 
@@ -38,8 +38,8 @@ class LoginRepository(val dataSource: LoginDataSource) {
         return result
     }
 
-    private fun setLoggedInUser(loggedInUser: LoggedInUser) {
-        this.user = loggedInUser
+    private fun setLoggedInUser(userModel: UserModel) {
+        this.userModel = userModel
         // If user credentials will be cached in local storage, it is recommended it be encrypted
         // @see https://developer.android.com/training/articles/keystore
     }
