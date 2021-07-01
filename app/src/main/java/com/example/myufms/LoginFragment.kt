@@ -12,7 +12,6 @@ import com.example.myufms.databinding.FragmentLoginBinding
 private var _binding: FragmentLoginBinding? = null
 private val binding get() = _binding!!
 
-
 class LoginFragment : Fragment() {
 
 
