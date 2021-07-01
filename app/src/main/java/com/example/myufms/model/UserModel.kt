@@ -1,13 +1,12 @@
 package com.example.myufms.model
 
-import android.text.Editable
 import com.google.gson.annotations.SerializedName
 
-data class SignupUserModel(
+data class UserModel(
+    val id: String,
     val email: String,
     val password: String,
-    val completeName: String,
-    @SerializedName("phone_number")
     val phoneNumber: Int,
-    val birthdate: String
+    val updated_At: String,
+    val created_At: String,
 )

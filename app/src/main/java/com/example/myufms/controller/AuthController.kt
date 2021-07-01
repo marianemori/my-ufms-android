@@ -1,33 +1,37 @@
 package com.example.myufms.controller
 
 import android.util.Log
-import com.example.myufms.TAG
-import com.example.myufms.model.SignupUserModel
+import com.example.myufms.model.ErrorResponseModel
+import com.example.myufms.model.UserSignupModel
 import com.example.myufms.utils.RetrofitClient
-import okhttp3.ResponseBody
 import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
 
 class AuthController {
-    private val  authService= RetrofitClient().authService
+    private val authService = RetrofitClient().authService
+    private val TAG = "Auth Service:"
 
-    fun signupNewUser(newUser: SignupUserModel, onResult: (ResponseBody?) -> Unit) {
+    fun signupNewUser(newUser: UserSignupModel, onResult: (ErrorResponseModel?) -> Unit) {
         authService.createNewUser(newUser).enqueue(
-            object : retrofit2.Callback<ResponseBody> {
-                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                    onResult(null)
-                    Log.d(TAG, "Response Body Error: ${t.message}")
-                }
+            object : Callback<ErrorResponseModel> {
 
                 override fun onResponse(
-                    call: Call<ResponseBody>,
-                    response: Response<ResponseBody>
+                    call: Call<ErrorResponseModel>,
+                    response: Response<ErrorResponseModel>
                 ) {
-                    val body = response.body()
-                    Log.d(TAG, "Response Body onResponse: ${body.toString()}")
-                    onResult(body)
+                    Log.d(TAG, "SignUp onResponse: ${response.body().toString()}")
+                    onResult(response.body())
+                }
+
+                override fun onFailure(call: Call<ErrorResponseModel>, t: Throwable) {
+                    onResult(null)
+                    Log.d(TAG, "SignUp onFailure: ${t.message}")
                 }
             }
         )
     }
+
+    fun loginUser() {}
+
 }

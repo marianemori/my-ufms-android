@@ -8,16 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.findNavController
-import com.example.myufms.api.AuthService
+import com.example.myufms.R
 import com.example.myufms.controller.AuthController
-import com.example.myufms.databinding.FragmentLoginBinding
 import com.example.myufms.databinding.FragmentSignupBinding
-import com.example.myufms.model.SignupUserModel
-import com.example.myufms.utils.RetrofitClient
-import okhttp3.Callback
-import okhttp3.ResponseBody
-import retrofit2.Call
-import retrofit2.Response
+import com.example.myufms.model.UserSignupModel
 import java.lang.Exception
 
 val TAG = "UserSignupRequest"
@@ -44,7 +38,7 @@ class SignupFragment : Fragment() {
         }
         binding.btnSignup.setOnClickListener { view ->
             try {
-                val newUser = SignupUserModel(
+                val newUser = UserSignupModel(
                     binding.editTextSignupEmail.text.toString(),
                     binding.editTextPassword.text.toString(),
                     binding.editTextSignupCompleteName.text.toString(),
